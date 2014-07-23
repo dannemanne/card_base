@@ -134,6 +134,9 @@ module.exports = function (grunt) {
   grunt.loadTasks(depsPath + '/grunt-contrib-less/tasks');
   grunt.loadTasks(depsPath + '/grunt-contrib-coffee/tasks');
 
+  // Load Bower Tasks
+  grunt.loadNpmTasks('grunt-bower');
+
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -409,6 +412,15 @@ module.exports = function (grunt) {
         // When assets are changed:
         tasks: ['compileAssets', 'linkAssets']
       }
+    },
+
+    bower: {
+      dev: {
+        dest: '.tmp/public/bower_components',
+        options: {
+          expand: true
+        }
+      }
     }
   });
 
@@ -421,6 +433,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('compileAssets', [
     'clean:dev',
+    'bower:dev',
     'jst:dev',
     'less:dev',
     'copy:dev',
@@ -465,10 +478,6 @@ module.exports = function (grunt) {
     'sails-linker:prodStylesJADE',
     'sails-linker:devTplJADE'
   ]);
-
-  // Init sails-migrations
-  grunt.loadNpmTasks('gake')
-  grunt.loadNpmTasks('sails-migrations');
 
   // When API files are changed:
   // grunt.event.on('watch', function(action, filepath) {

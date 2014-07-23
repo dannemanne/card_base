@@ -27,3 +27,12 @@ node_modules
 # Vagrant files
 .vagrant
 Vagrantfile
+
+# IntelliJ files
+.idea
+
+# Tmp folder
+.tmp
+
+# Bower components
+bower_components/
