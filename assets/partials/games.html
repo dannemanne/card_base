@@ -1,1 +1,5 @@
-<p>Games</p>
+<h1>Games</h1>
+
+<p ng-repeat="game in games | orderBy:title">
+  {{game.title}}
+</p>

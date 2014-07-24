@@ -33,6 +33,9 @@ module.exports = {
       type: 'integer',
       defaultsTo: 4,
       required: true
+    },
+    allowedActions: {
+      type: 'array'
     }
   }
 
