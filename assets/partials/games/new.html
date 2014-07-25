@@ -1,0 +1,18 @@
+<h2>Add a new Game</h2>
+
+<input type="text" class="form-control" placeholder="Title" name="title" ng-model="form.title" />
+
+<textarea class="form-control" placeholder="Description" name="description" ng-model="form.description"></textarea>
+
+<label>No of Decks</label>
+<select name="noOfDecks" ng-model="form.noOfDecks">
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+  <option value="4">4</option>
+</select>
+
+<label>Include Jokers</label>
+<input type="checkbox" name="includeJokers" ng-model="form.includeJokers">
+
+<button ng-click="submitPost()">Save</button>

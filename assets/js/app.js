@@ -10,8 +10,9 @@ angular.module('cardBase', [
   'cardBase.controllers'
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/',          { templateUrl: 'partials/home.html',      controller: 'HomeCtrl' });
-  $routeProvider.when('/games',     { templateUrl: 'partials/games.html',     controller: 'GamesCtrl' });
-  $routeProvider.when('/contact',   { templateUrl: 'partials/contact.html',   controller: 'ContactCtrl' });
+  $routeProvider.when('/',          { templateUrl: 'partials/home.html',        controller: 'HomeCtrl' });
+  $routeProvider.when('/games',     { templateUrl: 'partials/games/index.html', controller: 'GamesCtrl' });
+  $routeProvider.when('/games/new', { templateUrl: 'partials/games/new.html',   controller: 'AddGamesCtrl' });
+  $routeProvider.when('/contact',   { templateUrl: 'partials/contact.html',     controller: 'ContactCtrl' });
   $routeProvider.otherwise({redirectTo: '/'});
 }]);
