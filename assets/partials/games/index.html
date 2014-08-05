@@ -2,6 +2,8 @@
 
 <p ng-repeat="game in games | orderBy:title">
   {{game.title}}
+  <a href="#/games/show">View</a>
+  <a ng-click="destroyGame($event, game)">Destroy</a>
 </p>
 
 <p><a href="#/games/new">New Game</a></p>

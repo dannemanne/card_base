@@ -8,9 +8,12 @@ angular.module('cardBase.controllers', [])
   }])
 
   .controller('GamesCtrl', ['$scope', '$http', function($scope, $http) {
-    $http.get('games').success(function(data){
-      $scope.games = data;
+    $http.get('game_types').success(function(data){
+      $scope.game_types = data;
     });
+    $scope.destroyGame = function(game){
+      console.log('destroying: '+game.id);
+    }
   }])
 
   .controller('AddGamesCtrl', ['$scope', '$http', '$location', function($scope, $http, $location) {
