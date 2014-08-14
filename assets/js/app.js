@@ -11,8 +11,8 @@ angular.module('cardBase', [
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/',          { templateUrl: 'partials/home.html',        controller: 'HomeCtrl' });
-  $routeProvider.when('/games',     { templateUrl: 'partials/games/index.html', controller: 'GamesCtrl' });
-  $routeProvider.when('/games/new', { templateUrl: 'partials/games/new.html',   controller: 'AddGamesCtrl' });
+  $routeProvider.when('/gametypes',     { templateUrl: 'partials/gametypes/index.html', controller: 'GameTypesCtrl' });
+  $routeProvider.when('/gametypes/new', { templateUrl: 'partials/gametypes/new.html',   controller: 'AddGameTypesCtrl' });
   $routeProvider.when('/contact',   { templateUrl: 'partials/contact.html',     controller: 'ContactCtrl' });
   $routeProvider.otherwise({redirectTo: '/'});
 }]);

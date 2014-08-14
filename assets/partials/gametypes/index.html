@@ -1,0 +1,9 @@
+<h1>Games</h1>
+
+<p ng-repeat="gametype in gametypes | orderBy:title">
+  {{gametype.title}}
+  <a href="#/gametypes/show">View</a>
+  <a ng-click="destroyGame($event, gametype)">Destroy</a>
+</p>
+
+<p><a href="#/gametypes/new">New Game</a></p>

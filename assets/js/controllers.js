@@ -7,21 +7,30 @@ angular.module('cardBase.controllers', [])
 
   }])
 
-  .controller('GamesCtrl', ['$scope', '$http', function($scope, $http) {
-    $http.get('game_types').success(function(data){
-      $scope.game_types = data;
+  .controller('GameTypesCtrl', ['$scope', '$http', function($scope, $http) {
+    $http.get('gametypes').success(function(data){
+      console.log({data: data});
+      $scope.gametypes = data;
     });
-    $scope.destroyGame = function(game){
-      console.log('destroying: '+game.id);
+    $scope.destroyGame = function(gametype){
+      $http.delete('gametypes/'+gametype.id).success(function(data){
+        for(var i = 0; i < $scope.gametypes.length; i++){
+          if($scope.gametypes[i].id == gametype.id){
+            $scope.gametypes.splice(i, 1);
+            break;
+          }
+        }
+      });
+      console.log('destroying: '+gametype.id);
     }
   }])
 
-  .controller('AddGamesCtrl', ['$scope', '$http', '$location', function($scope, $http, $location) {
+  .controller('AddGameTypesCtrl', ['$scope', '$http', '$location', function($scope, $http, $location) {
     $scope.form = {};
     $scope.submitPost = function () {
-      $http.post('/games', $scope.form).
+      $http.post('/gametypes', $scope.form).
         success(function(data) {
-          $location.path('#/games');
+          $location.path('#/gametypes');
         });
     };
   }])
