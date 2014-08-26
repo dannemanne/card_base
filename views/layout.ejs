@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="css/app.css"/>
   <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
-<body>
+<body ng-controller="ApplicationController">
 
 <div class="site-wrapper">
 
@@ -36,9 +36,22 @@
       <div class="inner">
         <h3 class="masthead-brand">Card Base</h3>
         <ul class="nav masthead-nav">
-          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">Home</a></li>
           <li><a href="#/gametypes">Games</a></li>
           <li><a href="#/contact">Contact</a></li>
+          <li>
+            <div ng-if="currentUser">Welcome, {{ currentUser.name }}</div>
+            <div ng-if="!currentUser" style="color: #333;">
+              <div class="inline">
+                <form name="loginForm" ng-controller="LoginController" ng-submit="login(credentials)" novalidate>
+                  <div class="inline"><input type="text" id="email" ng-model="credentials.email" placeholder="Email" class="w10 form-control"></div>
+                  <div class="inline"><input type="password" id="password" ng-model="credentials.password" placeholder="Password" class="w10 form-control"></div>
+                  <div class="inline"><button type="submit" class="btn btn-primary">Login</button></div>
+                </form>
+              </div>
+              <div class="inline"><input type="button" value="Sign-up" class="btn btn-success"></div>
+            </div>
+          </li>
         </ul>
       </div>
     </div>

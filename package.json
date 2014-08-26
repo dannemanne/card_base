@@ -12,7 +12,8 @@
         "sails-postgresql": "0.9.7",
         "angular": "1.2.19",
         "grunt-bower":"0.13.0",
-        "nodemon": "1.2.1"
+        "nodemon": "1.2.1",
+        "bcrypt": "0.8.0"
     },
     "scripts": {
         "start": "node app.js",

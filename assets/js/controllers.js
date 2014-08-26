@@ -3,8 +3,34 @@
 /* Controllers */
 
 angular.module('cardBase.controllers', [])
+
+  .controller('ApplicationController', ['$scope', 'USER_ROLES', 'AuthService', function ($scope, USER_ROLES, AuthService) {
+    $scope.currentUser = null;
+    $scope.userRoles = USER_ROLES;
+    $scope.isAuthorized = AuthService.isAuthorized;
+
+    $scope.setCurrentUser = function (user) {
+      $scope.currentUser = user;
+    };
+  }])
+
   .controller('HomeCtrl', ['$scope', function($scope) {
 
+  }])
+
+  .controller('LoginController', ['$scope', '$rootScope', 'AUTH_EVENTS', 'AuthService', function($scope, $rootScope, AUTH_EVENTS, AuthService) {
+    $scope.credentials = {
+      email: '',
+      password: ''
+    };
+    $scope.login = function (credentials) {
+      AuthService.login(credentials).then(function (user) {
+        $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+        $scope.setCurrentUser(user);
+      }, function () {
+        $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+      });
+    };
   }])
 
   .controller('GameTypesCtrl', ['$scope', '$http', function($scope, $http) {
@@ -33,6 +59,13 @@ angular.module('cardBase.controllers', [])
           $location.path('#/gametypes');
         });
     };
+  }])
+
+  .controller('ShowGameTypesCtrl', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
+    $http.get('/gametypes/' + $routeParams.gametypeId).success(function(data){
+      $scope.gametype = data;
+      $scope.openGames = [];
+    });
   }])
 
   .controller('ContactCtrl', ['$scope', function($scope) {

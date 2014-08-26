@@ -5,5 +5,62 @@
 
 // Demonstrate how to register services
 // In this case it is a simple value service.
-angular.module('cardBase.services', []).
-  value('version', '0.1');
+angular.module('cardBase.services', [])
+  .value('version', '0.1')
+
+  .constant('AUTH_EVENTS', {
+    loginSuccess: 'auth-login-success',
+    loginFailed: 'auth-login-failed',
+    logoutSuccess: 'auth-logout-success',
+    sessionTimeout: 'auth-session-timeout',
+    notAuthenticated: 'auth-not-authenticated',
+    notAuthorized: 'auth-not-authorized'
+  })
+
+  .constant('USER_ROLES', {
+    all: '*',
+    admin: 'admin',
+    editor: 'editor',
+    guest: 'guest'
+  })
+
+  .factory('AuthService', ['$http', 'Session', function ($http, Session) {
+    var authService = {};
+
+    authService.login = function (credentials) {
+      return $http
+        .post('/login', credentials)
+        .then(function (res) {
+          Session.create(res.id, res.user.id, res.user.role);
+          return res.user;
+        });
+    };
+
+    authService.isAuthenticated = function () {
+      return !!Session.userId;
+    };
+
+    authService.isAuthorized = function (authorizedRoles) {
+      if (!angular.isArray(authorizedRoles)) {
+        authorizedRoles = [authorizedRoles];
+      }
+      return (authService.isAuthenticated() &&
+        authorizedRoles.indexOf(Session.userRole) !== -1);
+    };
+
+    return authService;
+  }])
+
+  .service('Session', function () {
+    this.create = function (sessionId, userId, userRole) {
+      this.id = sessionId;
+      this.userId = userId;
+      this.userRole = userRole;
+    };
+    this.destroy = function () {
+      this.id = null;
+      this.userId = null;
+      this.userRole = null;
+    };
+    return this;
+  });

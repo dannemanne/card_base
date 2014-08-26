@@ -1,0 +1,9 @@
+<h1>{{gametype.title}}</h1>
+
+<h2>Games looking for more players</h2>
+<p ng-repeat="game in openGames | orderBy:title">
+  No. of players: {{game.noOfPlayers}}
+  <a href="#/games/{{game.id}}/join">Join</a>
+</p>
+
+<p><a href="#/gametypes">Back</a></p>

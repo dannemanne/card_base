@@ -10,9 +10,6 @@ module.exports = {
 
   attributes: {
 
-  	/* e.g.
-  	nickname: 'string'
-  	*/
     firstName: {
       type: 'string'
     },
@@ -23,7 +20,8 @@ module.exports = {
 
     email: {
       type: 'string',
-      required: true
+      required: true,
+      unique: true
     },
 
     encryptedPassword: {
@@ -31,6 +29,22 @@ module.exports = {
       required: true
     }
 
+  },
+
+  // Encrypts password
+  beforeCreate: function (attrs, next) {
+    var bcrypt = require('bcrypt');
+
+    bcrypt.genSalt(10, function(err, salt) {
+      if (err) return next(err);
+
+      bcrypt.hash(attrs.password, salt, function(err, hash) {
+        if (err) return next(err);
+
+        attrs.encryptedPassword = hash;
+        next();
+      });
+    });
   }
 
 };

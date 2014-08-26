@@ -28,3 +28,11 @@
   content: "";
   padding: 0;
 }
+
+
+
+.inline {
+    display: inline-block;
+}
+
+.w10 { width: 10rem; }
